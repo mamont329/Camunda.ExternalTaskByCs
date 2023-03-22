@@ -5,27 +5,20 @@ class ExampleApp
 {
     static void Main()
     {
-        // bootstrap the external task client
-        ExternalTaskClient client = ExternalTaskClient.create()
-            .endpoint("http://localhost:8080/engine-rest")
-            .build();
+        var task = new TopicSubscriptionManager("http://localhost:8080/engine-rest")
+            .AddHandler("charge-card", new MyHandler())
+            .StartTask();
 
-        // subscribe to a topic name
-        TopicSubscription topic = client.subscribe("charge-card")
-            .handler(new MyHandler())
-            .open();
+        Console.ReadKey();
     }
 }
 
 class MyHandler : IHandler {
 
-    // customized handler
-    public void execute(ExternalTask task, ExternalTaskService externalTaskService) {
+    public void Action(ExternalTask task, ExternalTaskService externalTaskService) {
 
-        // complete external task
         externalTaskService.complete(task);
-
-        Console.WriteLine("External Task " + task + " successfully completed!\n");
+        Console.WriteLine($"External Task {task} successfully completed!");
     }
 
 }

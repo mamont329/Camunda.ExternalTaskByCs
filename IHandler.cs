@@ -3,7 +3,7 @@ namespace Camunda
     public interface IHandler
     {
         
-        void execute(ExternalTask task, ExternalTaskService service);
+        void Action(ExternalTask task, ExternalTaskService service);
 
     }
 }
