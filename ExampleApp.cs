@@ -11,7 +11,7 @@ class ExampleApp
             .build();
 
         // subscribe to a topic name
-        TopicSubscription topic = client.subscribe("invoiceCreator")
+        TopicSubscription topic = client.subscribe("charge-card")
             .handler(new MyHandler())
             .open();
     }
